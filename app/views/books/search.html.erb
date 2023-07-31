@@ -1,0 +1,22 @@
+<div>
+  <h1>Search Results</h1>
+
+  <% search_keyword = params[:keyword].presence || "All Books" %>
+  <% search_category = Genre.find(params[:genre_id]).name if params[:genre_id].present? %>
+
+  <% if search_category.present? %>
+    <p>Your search result for "<%= search_keyword %>" in "<%= search_category %>" Genre found <%= @result_count %> results.</p>
+  <% else %>
+    <p>Your search result for "<%= search_keyword %>" in all genres found <%= @result_count  %> results.</p>
+  <% end %>
+
+  <% if @books.any? %>
+    <div>
+      <% @books.each do |book| %>
+        <%= render book %>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No Books found.</p>
+  <% end %>
+</div>

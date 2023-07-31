@@ -35,13 +35,13 @@ class BooksController < ApplicationController
       @books = @books.where(genre_id: params[:genre_id])
                            .where('name LIKE ?', "%#{params[:keyword]}%")
     elsif params[:genre_id].present?
-      @books = @books.where(genre_id: params[:genre_id])
+      @bookss = @genres.where(genre_id: params[:genre_id])
     elsif params[:keyword].present?
-      @books = @books.where('name LIKE ?', "%#{params[:keyword]}%")
+      @products = @products.where('name LIKE ?', "%#{params[:keyword]}%")
     else
-      @books = @books
+      @products = @products
     end
-    @result_count = @books.size
-    # @books = @books.page(params[:page]).per(15)
+    @total_results = @products.size
+    @products = @products.page(params[:page]).per(15)
   end
 end
