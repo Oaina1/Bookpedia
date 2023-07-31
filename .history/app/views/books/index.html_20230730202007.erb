@@ -1,0 +1,16 @@
+<div>
+<h1>Books</h1>
+
+ <% if @genre %>
+        <h2>Books in Genre: <%= @genre.name %></h2>
+         <div>
+        <% @books.each do |book| %>
+            <%= render book%>
+        <%end%>
+        </div>
+
+<% @books.each do |book| %>
+  <%= render partial: 'book', locals: { book: book } %>
+<% end %>
+
+</div>
