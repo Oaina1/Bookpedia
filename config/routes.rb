@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'customer/show'
   devise_for :customers
   get 'about_pages/show'
   get 'contact_pages/show'
