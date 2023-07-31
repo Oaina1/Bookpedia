@@ -1,27 +1,8 @@
 <h1>Shopping Cart</h1>
 
-
 <% if session[:cart].blank? %>
   <p>Your shopping cart is empty.</p>
 <% else %>
-<% if flash[:add] %>
-  <div class="flash-message">
-    <%= flash[:add] %>
-  </div>
-<% end %>
-
-<% if flash[:update] %>
-  <div class="flash-message">
-    <%= flash[:update] %>
-  </div>
-<% end %>
-
-<% if flash[:delete] %>
-  <div class="flash-message">
-    <%= flash[:delete] %>
-  </div>
-<% end %>
-
   <table>
     <thead>
       <tr>
@@ -35,6 +16,7 @@
     <tbody>
       <% session[:cart].each do |book_id, cart_item| %>
       <% book = Book.find(book_id) %>
+      <% price = cart_item['price'].to_f * cart_item['quantity'] %>
         <tr>
           <td>
           <% if book.image.attached? %>
@@ -50,8 +32,8 @@
               <%= submit_tag "Update" %>
             <% end %>
           </td>
-           <td><%= number_to_currency(cart_item['price'].to_f * cart_item['quantity']) %></td>
-          <td><%= button_to "Remove", remove_from_cart_path(book_id: book_id), method: :delete, data: { confirm: "Are you sure you want to remove this item from the cart?" } %></td>
+          <td><%= number_to_currency(price) %></td>
+          <td><%= link_to "Remove", remove_from_cart_path(book_id: book_id), method: :delete, data: { confirm: "Are you sure you want to remove this item from the cart?" } %></td>
         </tr>
       <% end %>
     </tbody>

@@ -28,9 +28,6 @@ Rails.application.routes.draw do
       get 'filter'
       get "search"
     end
-    member do
-      post 'add_to_cart'
-    end
   end
 
 end

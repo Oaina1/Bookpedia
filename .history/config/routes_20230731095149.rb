@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-
-  post 'cart/add_to_cart', to: 'cart#add_to_cart', as: 'add_to_cart'
   get 'cart', to: 'cart#index', as: 'cart'
   patch 'cart/update_quantity', to: 'cart#update_quantity', as: 'update_quantity_cart'
   delete 'cart/remove_item', to: 'cart#remove_item', as: 'remove_from_cart'
