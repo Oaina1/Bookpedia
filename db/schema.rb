@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_31_132719) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_31_160148) do
   create_table "about_pages", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -113,6 +113,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_132719) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.decimal "price"
+    t.integer "book_id", null: false
+    t.integer "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_order_items_on_book_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.date "date", default: -> { "CURRENT_DATE" }
+    t.decimal "total_amount"
+    t.decimal "gst"
+    t.decimal "pst"
+    t.decimal "hst"
+    t.string "status"
+    t.integer "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+  end
+
   create_table "provinces", force: :cascade do |t|
     t.string "name"
     t.decimal "pst"
@@ -125,4 +149,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_132719) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "books", "genres"
+  add_foreign_key "order_items", "books"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "customers"
 end
