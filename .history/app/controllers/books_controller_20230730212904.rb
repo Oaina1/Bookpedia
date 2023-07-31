@@ -21,7 +21,7 @@ class BooksController < ApplicationController
       when 'recntly_updated'
         @books = @books.where('updated_at >= ?', 3.days.ago)
       when 'on_sale'
-        @books = @books.where(on_sale: true)
+        @books = @books.where(on_sale_status: true)
       end
     end
     # You may also want to paginate the results

@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     resources :books, only: :index
   end
 
-  resources :books, only: [:index, :show]
+  resources :books, only: [:index, :show] do
+    collection do
+      get 'filter'
+      get "search"
+    end
+  end
 
 end

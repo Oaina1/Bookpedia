@@ -1,0 +1,29 @@
+<!-- app/views/products/filter.html.erb -->
+<div>
+
+ <div>
+  <% if params[:filter].present? %>
+    <% if params[:filter] == 'recently_updated' %>
+      <% if @books.empty? %>
+        <h3>No Recently Updated Books Found</h3>
+      <% else %>
+        <h3>Filter: Recenly Updated Products</h3>
+      <% end %>
+    <% elsif params[:filter] == 'on_sale' %>
+      <% if @books.empty? %>
+        <h3>No Books on Sale Found</h3>
+      <% else %>
+        <h3>Filter: Books on Sale</h3>
+      <% end %>
+    <% end %>
+  <% else %>
+    <h3 class="title is-5">All Books</h3>
+  <% end %>
+
+  <div>
+    <% @books.each do |book| %>
+      <%= render book %>
+    <% end %>
+  </div>
+ </div>
+</div>
