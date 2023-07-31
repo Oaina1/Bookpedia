@@ -15,16 +15,16 @@ class CartController < ApplicationController
 
 
   def update_quantity
-    book_id = params[:book_id]
+    book_id = params[:product_id]
     quantity = params[:quantity].to_i
-    session[:cart][book_id][:quantity] = quantity
-    redirect_to cart_path, flash: { added_success: 'Book quantiy updated successfully.' }
+    session[:cart][product_id][:quantity] = quantity
+    redirect_to cart_path, notice: 'Cart updated.'
   end
 
   def remove_item
-    book_id = params[:book_id]
-    session[:cart].delete(book_id)
-    redirect_to cart_path, flash: { added_success: 'Book deleted from cart successfully.' }
+    product_id = params[:product_id]
+    session[:cart].delete(product_id)
+    redirect_to cart_path, notice: 'Item removed from cart.'
   end
 
 

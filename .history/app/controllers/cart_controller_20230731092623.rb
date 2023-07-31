@@ -7,7 +7,7 @@ class CartController < ApplicationController
     session[:cart][book_id] ||= { name: book.name, price: book.price, quantity: 0 }
     session[:cart][book_id][:quantity] += 1
 
-    redirect_to cart_path,flash: { added_success: 'Book added to cart successfully.' }
+    redirect_to books_path,flash: { added_success: 'Product added to cart successfully.' }
   end
 
   def index
@@ -15,16 +15,16 @@ class CartController < ApplicationController
 
 
   def update_quantity
-    book_id = params[:book_id]
+    product_id = params[:product_id]
     quantity = params[:quantity].to_i
-    session[:cart][book_id][:quantity] = quantity
-    redirect_to cart_path, flash: { added_success: 'Book quantiy updated successfully.' }
+    session[:cart][product_id][:quantity] = quantity
+    redirect_to cart_path, notice: 'Cart updated.'
   end
 
   def remove_item
-    book_id = params[:book_id]
-    session[:cart].delete(book_id)
-    redirect_to cart_path, flash: { added_success: 'Book deleted from cart successfully.' }
+    product_id = params[:product_id]
+    session[:cart].delete(product_id)
+    redirect_to cart_path, notice: 'Item removed from cart.'
   end
 
 
