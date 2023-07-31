@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     post 'create', to: 'checkout#create', as: 'checkout_create'
     get 'success', to: 'checkout#success', as: 'checkout_success'
     get 'index', to: 'checkout#index', as: 'checkout_index'
-    get 'guest', to: 'checkout#guest', as: 'guest'
-    post 'save_guest_details', to: 'checkout#save_guest_details', as: 'save_guest_details'
+    get 'guest_checkout', to: '#guest_checkout', as: 'guest_checkout'
+    post 'save_guest_details', to: '#save_guest_details', as: 'save_guest_details'
 
   end
 

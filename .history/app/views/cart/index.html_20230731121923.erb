@@ -58,29 +58,19 @@
     </tbody>
   </table>
 
-  <p>Total(excluding taxes): <%= number_to_currency(session[:cart].sum { |_, cart_item| cart_item['price'].to_f * cart_item['quantity'] }) %></p>
-  <% if @tax_rates.present? %>
-  <p>Taxes:</p>
-  <ul>
-    <% @tax_rates.each do |tax_type, tax_rate| %>
-      <li><strong><%= tax_type.to_s.upcase %>:</strong> <%= number_to_currency(@subtotal * tax_rate.to_f, precision: 2) %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<p>Total Amount After Tax: <%= number_to_currency(@total_amount) %></p>
+  <p>Total: <%= number_to_currency(session[:cart].sum { |_, cart_item| cart_item['price'].to_f * cart_item['quantity'] }) %></p>
 
   <% if current_customer %>
     <!-- Display taxes and delivery details if a customer is logged in -->
     <p>Delivery to: <%= current_customer.address %>, <%= current_customer.province.name %></p>
     <%= link_to "Edit Address", edit_customer_registration_path %>
-    <%= button_to "Checkout", checkout_create_path %>
+    <%= button_to "Proceed to Checkout", checkout_create_path %>
   <% elsif session[:guest_address].present? %>
-      <p>Delivery to: <%= session[:guest_address]%>, <%= Province.find(session[:guest_province_id]).name %></p>
+      <p>Delivery to: <%= session[:guest_address]%>, <%= session[:guest_province_id] %></p>
       <%= link_to "Edit Address", guest_path %>
-      <%= button_to "Checkout As Guest", checkout_create_path %>
+      <%= button_to "Proceed to Checkout", checkout_create_path %>
   <% else %>
     <!-- Display a button for guest checkout -->
-    <%= link_to "Add Guest Chekout Details", guest_path %>
+    <%= link_to "Proceed to Checkout as Guest", guest_path %>
   <% end %>
 <% end %>

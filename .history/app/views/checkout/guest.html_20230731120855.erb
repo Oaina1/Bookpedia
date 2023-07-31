@@ -1,0 +1,22 @@
+<h1>Guest Checkout</h1>
+
+
+
+<%= form_with(url: save_guest_details_path) do |form| %>
+<div>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  </div>
+
+<div>
+  <%= form.label :address %>
+  <%= form.text_area :address %>
+  </div>
+
+<div>
+  <%= form.label :province %>
+  <%= form.select :province_id, options_for_select(Province.all.map { |p| [p.name, p.id] }) %>
+  </div>
+
+  <%= form.submit "Save Address" %>
+<% end %>

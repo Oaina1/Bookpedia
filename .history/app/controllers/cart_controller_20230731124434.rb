@@ -16,16 +16,16 @@ class CartController < ApplicationController
       @customer_province = current_customer.province
 
       # Fetch tax rates from the province table for signed-in customers
-      @tax_rates[:gst] = @customer_province.gst
-      @tax_rates[:pst] = @customer_province.pst
-      @tax_rates[:hst] = @customer_province.hst
+      @tax_rates[:gst] = @customer_province.gst_rate
+      @tax_rates[:pst] = @customer_province.pst_rate
+      @tax_rates[:hst] = @customer_province.hst_rate
     elsif session[:guest_province_id].present?
       # Fetch tax rates from the province table for guest customers (if available in session)
       guest_province = Province.find_by(id: session[:guest_province_id])
       if guest_province
-        @tax_rates[:gst] = guest_province.gst
-        @tax_rates[:pst] = guest_province.pst
-        @tax_rates[:hst] = guest_province.hst
+        @tax_rates[:gst] = guest_province.gst_rate
+        @tax_rates[:pst] = guest_province.pst_rate
+        @tax_rates[:hst] = guest_province.hst_rate
       end
     end
 
