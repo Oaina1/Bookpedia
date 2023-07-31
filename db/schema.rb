@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_31_030516) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_31_034417) do
+  create_table "about_pages", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -75,6 +82,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_030516) do
     t.datetime "updated_at", null: false
     t.boolean "on_sale"
     t.index ["genre_id"], name: "index_books_on_genre_id"
+  end
+
+  create_table "contact_pages", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "genres", force: :cascade do |t|
