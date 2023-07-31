@@ -12,29 +12,6 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-   <div class="field">
-      <%= f.label :name, class: 'label' %><br />
-      <div class="control">
-        <%= f.text_field :name, class: 'input' %>
-      </div>
-    </div>
-
-
-  <div class="field">
-      <%= f.label :address, class: 'label' %><br />
-      <div class="control">
-        <%= f.text_field :address, class: 'input' %>
-      </div>
-    </div>
-
-
-    <div class="field">
-      <%= f.label :province, class: 'label' %><br />
-      <div class="control">
-        <%= f.collection_select :province_id, Province.all, :id, :name, { include_blank: true }, class: 'select' %>
-      </div>
-    </div>
-
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
