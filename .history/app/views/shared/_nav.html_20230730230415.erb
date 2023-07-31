@@ -8,8 +8,8 @@
              <%= select_tag(:genre_id, options_for_select(Genre.all.map { |g| [g.name, g.id] }, params[:genre_id]), include_blank: 'All Genres', id: 'genre-select') %>
         <% end %>
       </li>
-       <li><%= link_to 'About Us', about_pages_show_path %></li>
-      <li><%= link_to 'Contact Us', contact_pages_show_path %></li>
+       <li><%= link_to 'About Us', about_path %></li>
+      <li><%= link_to 'Contact Us', contact_path %></li>
 
       <li>
        <%= form_tag(search_books_path, method: :get) do %>
