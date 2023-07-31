@@ -1,0 +1,25 @@
+ <nav>
+    <ul>
+      <li><%= link_to 'Bookpedia', root_path %></li>
+      <li><%= link_to 'Books', books_path %></li>
+      <li>
+         <%= form_tag(books_path, method: :get, id: 'genre-form') do %>
+          <label for="genre">Select Genre:</label>
+             <%= select_tag(:genre_id, options_for_select(Genre.all.map { |g| [g.name, g.id] }, params[:genre_id]), include_blank: 'All Genres', id: 'genre-select') %>
+        <% end %>
+      </li>
+    </ul>
+  </nav>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const genreForm = document.getElementById('genre-form');
+    genreForm.addEventListener('change', function(event) {
+      event.preventDefault();
+      if (event.target.id === 'genre-select') {
+        genreForm.submit();
+      }
+    });
+  })
+
+</script>
