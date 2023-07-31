@@ -23,20 +23,20 @@ class CheckoutController < ApplicationController
       total_amount = (subtotal + tax_amount).round(2)
 
       # Create the order
-      @order = Order.create!(
+      order = Order.create!(
         date: Date.current,
         total_amount: total_amount,
-        gst: subtotal * (tax_rates[:gst].to_f).round(2),
-        pst: subtotal * (tax_rates[:pst].to_f).round(2),
-        hst: subtotal * (tax_rates[:hst].to_f).round(2),
-        status: 'paid',
+        gst: subtotal * (tax_rates[:gst].to_f),
+        pst: subtotal * (tax_rates[:pst].to_f),
+        hst: subtotal * (tax_rates[:hst].to_f),
+        status: 'new',
         customer_id: customer_signed_in? ? current_customer.id : nil,
       )
 
       # Create order items
       session[:cart].each do |book_id, cart_item|
         book = Book.find(book_id)
-        @order.order_items.create(
+        order.order_items.create(
           quantity: cart_item['quantity'].to_i,
           price: book.price.to_f,
           book_id: book.id
@@ -47,11 +47,9 @@ class CheckoutController < ApplicationController
       # Clear the cart after successful order creation
       session.delete(:cart)
 
-        redirect_to checkout_success_path
-    end
+        redirect_to orders_index_path, flash: { success: 'Order created successfully. Thank you for your purchase!' }
 
-def success
-end
+    end
 
 def guest
 end

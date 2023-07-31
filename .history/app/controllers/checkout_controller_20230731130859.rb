@@ -23,35 +23,35 @@ class CheckoutController < ApplicationController
       total_amount = (subtotal + tax_amount).round(2)
 
       # Create the order
-      @order = Order.create!(
+      order = Order.new(
         date: Date.current,
         total_amount: total_amount,
-        gst: subtotal * (tax_rates[:gst].to_f).round(2),
-        pst: subtotal * (tax_rates[:pst].to_f).round(2),
-        hst: subtotal * (tax_rates[:hst].to_f).round(2),
-        status: 'paid',
-        customer_id: customer_signed_in? ? current_customer.id : nil,
+        gst: subtotal * (tax_rates[:gst].to_f),
+        pst: subtotal * (tax_rates[:pst].to_f),
+        hst: subtotal * (tax_rates[:hst].to_f),
+        status: 'new',
+        customer_id: current_customer.id
       )
 
-      # Create order items
-      session[:cart].each do |book_id, cart_item|
-        book = Book.find(book_id)
-        @order.order_items.create(
-          quantity: cart_item['quantity'].to_i,
-          price: book.price.to_f,
-          book_id: book.id
-        )
+      if order.save
+        # Create order items
+        session[:cart].each do |book_id, cart_item|
+          book = Book.find(book_id)
+          order.order_items.create(
+            quantity: cart_item['quantity'].to_i,
+            price: book.price.to_f,
+            book_id: book.id
+          )
+        end
 
+        # Clear the cart after successful order creation
+        session.delete(:cart)
+
+        redirect_to order_path(order), flash: { success: 'Order created successfully. Thank you for your purchase!' }
+      else
+        redirect_to cart_path, flash: { error: 'There was an error creating the order. Please try again later.' }
       end
-
-      # Clear the cart after successful order creation
-      session.delete(:cart)
-
-        redirect_to checkout_success_path
     end
-
-def success
-end
 
 def guest
 end

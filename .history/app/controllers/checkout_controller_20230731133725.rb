@@ -29,14 +29,25 @@ class CheckoutController < ApplicationController
         gst: subtotal * (tax_rates[:gst].to_f).round(2),
         pst: subtotal * (tax_rates[:pst].to_f).round(2),
         hst: subtotal * (tax_rates[:hst].to_f).round(2),
+        status: 'new',
+        customer_id: customer_signed_in? ? current_customer.id : nil,
+      )
+
+      @order = Order.create!(
+        date: Date.current,
+        total_amount: total_amount,
+        gst: subtotal * (tax_rates[:gst].to_f).round(2),
+        pst: subtotal * (tax_rates[:pst].to_f).round(2),
+        hst: subtotal * (tax_rates[:hst].to_f).round(2),
         status: 'paid',
         customer_id: customer_signed_in? ? current_customer.id : nil,
+        payment_intent_id: payment_intent_id
       )
 
       # Create order items
       session[:cart].each do |book_id, cart_item|
         book = Book.find(book_id)
-        @order.order_items.create(
+        order.order_items.create(
           quantity: cart_item['quantity'].to_i,
           price: book.price.to_f,
           book_id: book.id

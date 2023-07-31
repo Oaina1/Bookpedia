@@ -23,6 +23,7 @@ class CheckoutController < ApplicationController
       total_amount = (subtotal + tax_amount).round(2)
 
       # Create the order
+
       @order = Order.create!(
         date: Date.current,
         total_amount: total_amount,
@@ -36,7 +37,7 @@ class CheckoutController < ApplicationController
       # Create order items
       session[:cart].each do |book_id, cart_item|
         book = Book.find(book_id)
-        @order.order_items.create(
+        order.order_items.create(
           quantity: cart_item['quantity'].to_i,
           price: book.price.to_f,
           book_id: book.id

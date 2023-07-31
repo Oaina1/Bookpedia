@@ -36,7 +36,7 @@ class CheckoutController < ApplicationController
       # Create order items
       session[:cart].each do |book_id, cart_item|
         book = Book.find(book_id)
-        @order.order_items.create(
+        order.order_items.create(
           quantity: cart_item['quantity'].to_i,
           price: book.price.to_f,
           book_id: book.id
