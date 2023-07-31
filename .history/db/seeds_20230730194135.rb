@@ -36,7 +36,7 @@ CSV.foreach(csv_file_path, headers: true) do |row|
   )
 
   # Fetch image from Unsplash based on the book name
-  unsplash_image_name = URI.encode_www_form_component(book_name)
+  unsplash_image_name = URI.encode_www_form_component(product_data['name'])
   unsplash_image_url = "https://source.unsplash.com/800x600/?#{unsplash_image_name}"
   image_io = URI.open(unsplash_image_url)
   book.image.attach(

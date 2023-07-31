@@ -7,15 +7,11 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 require 'csv'
-require 'faker'
-Book.destroy_all
-Genre.destroy_all
-Province.destroy_all
 
 # Your other seed code goes here
 
 # Seed data from CSV file
-csv_file_path = Rails.root.join('db', 'books.csv')
+csv_file_path = Rails.root.join('db', 'books_data.csv')
 
 CSV.foreach(csv_file_path, headers: true) do |row|
   book_name = row['Title']
@@ -36,7 +32,7 @@ CSV.foreach(csv_file_path, headers: true) do |row|
   )
 
   # Fetch image from Unsplash based on the book name
-  unsplash_image_name = URI.encode_www_form_component(book_name)
+  unsplash_image_name = URI.encode_www_form_component(product_data['name'])
   unsplash_image_url = "https://source.unsplash.com/800x600/?#{unsplash_image_name}"
   image_io = URI.open(unsplash_image_url)
   book.image.attach(

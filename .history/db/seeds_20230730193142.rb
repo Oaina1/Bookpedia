@@ -7,15 +7,11 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 require 'csv'
-require 'faker'
-Book.destroy_all
-Genre.destroy_all
-Province.destroy_all
 
 # Your other seed code goes here
 
 # Seed data from CSV file
-csv_file_path = Rails.root.join('db', 'books.csv')
+csv_file_path = Rails.root.join('db', 'books_data.csv')
 
 CSV.foreach(csv_file_path, headers: true) do |row|
   book_name = row['Title']
@@ -36,7 +32,7 @@ CSV.foreach(csv_file_path, headers: true) do |row|
   )
 
   # Fetch image from Unsplash based on the book name
-  unsplash_image_name = URI.encode_www_form_component(book_name)
+  unsplash_image_name = URI.encode_www_form_component(product_data['name'])
   unsplash_image_url = "https://source.unsplash.com/800x600/?#{unsplash_image_name}"
   image_io = URI.open(unsplash_image_url)
   book.image.attach(
@@ -44,23 +40,4 @@ CSV.foreach(csv_file_path, headers: true) do |row|
     filename: "book_#{book.id}.jpg",
     content_type: 'image/jpeg'
   )
-end
-
-provinces = [
-  { name: 'Alberta', gst: 0.05, pst: 0, hst: 0 },
-  { name: 'British Columbia', gst: 0.05, pst: 0.05, hst: 0 },
-  { name: 'Manitoba', gst: 0.05, pst: 0.07, hst: 0 },
-  { name: 'New Brunswick', gst: 0, pst: 0, hst: 0.15 },
-  { name: 'Newfoundland and Labrador', gst: 0, pst: 0, hst: 0.15 },
-  { name: 'Northwest Territories', gst: 0.05, pst: 0, hst: 0 },
-  { name: 'Nova Scotia', gst: 0, pst: 0, hst: 0.15 },
-  { name: 'Nunavut', gst: 0.05, pst: 0, hst: 0 },
-  { name: 'Ontario', gst: 0, pst: 0, hst: 0.13 },
-  { name: 'Prince Edward Island', gst: 0, pst: 0, hst: 0.15 },
-  { name: 'Quebec', gst: 0.05, pst: 0.09975, hst: 0 },
-  { name: 'Saskatchewan', gst: 0.05, pst: 0.06, hst: 0 },
-  { name: 'Yukon', gst: 0.05, pst: 0, hst: 0 }
-]
-provinces.each do |province|
-  Province.create(province)
 end
