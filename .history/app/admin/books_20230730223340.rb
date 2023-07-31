@@ -54,17 +54,22 @@ ActiveAdmin.register Book do
       row :genre
       row :publisher
       row :price
-      row :on_sale
-      row :image do |book|
-        if book.image.attached?
-          image_tag book.image.variant(resize_to_limit: [200, 200])
+      row :on_sale_status
+      row :image do |product|
+        if product.image.attached?
+          image_tag product.image.variant(resize_to_limit: [200, 200])
         else
           "No image attached"
         end
       end
+      row :tags do |product|
+        product.tags.each do |tag|
+          span tag.name
+        end
+      end
+    end
     active_admin_comments
   end
-end
 
 
 end
