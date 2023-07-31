@@ -64,7 +64,3 @@ provinces = [
 provinces.each do |province|
   Province.create(province)
 end
-
-# Book.all.each do |book|
-#   book.update(on_sale: [true, false].sample)
-# end
