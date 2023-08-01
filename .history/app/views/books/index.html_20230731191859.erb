@@ -16,7 +16,7 @@
     <h2 class="title">Books in Genre: <%= @genre.name %></h2>
     <div class="columns is-multiline">
       <% @books.each do |book| %>
-        <div class="column is-4">
+        <div class="column is-one-third">
           <%= render book %>
         </div>
       <% end %>
@@ -25,7 +25,7 @@
     <h2 class="title">All Books</h2>
     <div class="columns is-multiline">
       <% @books.each do |book| %>
-        <div class="column is-4">
+        <div class="column is-one-third">
           <%= render book %>
         </div>
       <% end %>
@@ -38,7 +38,6 @@
 
   <%= paginate @books %>
 </div>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

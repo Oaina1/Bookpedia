@@ -13,11 +13,12 @@
       <%= link_to 'Books', books_path, class: 'navbar-item' %>
 
       <%= form_tag(books_path, method: :get, class: 'navbar-item', id: 'genre-form') do %>
-        <%= select_tag(:genre_id, options_for_select(Genre.all.map { |g| [g.name, g.id] }, params[:genre_id]), include_blank: 'All Genres', class: 'genre-select select') %>
+        <label for="genre">Select Genre:</label>
+        <%= select_tag(:genre_id, options_for_select(Genre.all.map { |g| [g.name, g.id] }, params[:genre_id]), include_blank: 'All Genres', class: 'genre-select') %>
       <% end %>
 
-      <%= link_to 'About', about_pages_show_path, class: 'navbar-item' %>
-      <%= link_to 'Contact', contact_pages_show_path, class: 'navbar-item' %>
+      <%= link_to 'About Us', about_pages_show_path, class: 'navbar-item' %>
+      <%= link_to 'Contact Us', contact_pages_show_path, class: 'navbar-item' %>
 
       <%= form_tag(search_books_path, method: :get, class: 'navbar-item') do %>
         <div class="field has-addons">

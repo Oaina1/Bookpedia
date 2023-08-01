@@ -13,6 +13,7 @@
       <%= link_to 'Books', books_path, class: 'navbar-item' %>
 
       <%= form_tag(books_path, method: :get, class: 'navbar-item', id: 'genre-form') do %>
+        <label for="genre">Select Genre:</label>
         <%= select_tag(:genre_id, options_for_select(Genre.all.map { |g| [g.name, g.id] }, params[:genre_id]), include_blank: 'All Genres', class: 'genre-select select') %>
       <% end %>
 

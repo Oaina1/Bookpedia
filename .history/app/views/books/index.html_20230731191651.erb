@@ -8,6 +8,11 @@
         <div class="field is-narrow">
           <%= select_tag(:filter, options_for_select({ 'Recently_updated' => 'recently_updated', 'On_sale' => 'on_sale' }, params[:filter]), include_blank: 'All', id: 'filter-select', class: 'select is-small') %>
         </div>
+        <div class="field">
+          <div class="control">
+            <%= submit_tag('Filter', class: 'button is-primary is-small') %>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>
@@ -16,7 +21,7 @@
     <h2 class="title">Books in Genre: <%= @genre.name %></h2>
     <div class="columns is-multiline">
       <% @books.each do |book| %>
-        <div class="column is-4">
+        <div class="column is-one-third">
           <%= render book %>
         </div>
       <% end %>
@@ -25,7 +30,7 @@
     <h2 class="title">All Books</h2>
     <div class="columns is-multiline">
       <% @books.each do |book| %>
-        <div class="column is-4">
+        <div class="column is-one-third">
           <%= render book %>
         </div>
       <% end %>
@@ -38,7 +43,6 @@
 
   <%= paginate @books %>
 </div>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

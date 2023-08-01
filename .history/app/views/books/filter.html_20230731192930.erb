@@ -9,6 +9,9 @@
         <div class="field">
           <%= select_tag(:filter, options_for_select({ 'Recently_updated' => 'recently_updated', 'On_sale' => 'on_sale' }, params[:filter]), include_blank: 'All', id: 'filter-select', class: 'select' ) %>
         </div>
+        <div class="field">
+          <%= submit_tag('Filter', class: 'button is-primary') %>
+        </div>
       </div>
     </div>
   <% end %>

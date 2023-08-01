@@ -89,7 +89,7 @@
     <% elsif session[:guest_address].present? %>
       <p>Total Amount After Tax: <%= number_to_currency(@total_amount) %></p>
       <p>Delivery to: <%= session[:guest_address] %>, <%= Province.find(session[:guest_province_id]).name %></p>
-      <%= link_to "Edit Address", guest_path, class: 'button is-info is-small mb-4' %>
+      <%= link_to "Edit Address", guest_path, class: 'button is-info is-small' %>
       <%= button_to "Checkout As Guest", checkout_create_path, class: 'button is-info' %>
     <% else %>
       <!-- Display a button for guest checkout -->

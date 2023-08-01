@@ -11,7 +11,6 @@ class CartController < ApplicationController
 
   def index
     @tax_rates = {}
-    @subtotal = 0
 
     if current_customer
       @customer_province = current_customer.province
@@ -31,13 +30,11 @@ class CartController < ApplicationController
     end
 
     # Calculate the tax amount
-    unless session[:cart].nil? || session[:cart].empty?
-      @subtotal = session[:cart].sum { |_, cart_item| cart_item['price'].to_f * cart_item['quantity'] }
-      @tax_amount = (@subtotal * (@tax_rates[:gst].to_f + @tax_rates[:pst].to_f + @tax_rates[:hst].to_f)).round(2)
+    @subtotal = session[:cart].sum{ |_, cart_item| cart_item['price'].to_f * cart_item['quantity'] }
+    @tax_amount = (@subtotal * (@tax_rates[:gst].to_f + @tax_rates[:pst].to_f + @tax_rates[:hst].to_f)).round(2)
 
-      # Calculate the total amount after adding tax
-      @total_amount = (@subtotal + @tax_amount).round(2)
-    end
+    # Calculate the total amount after adding tax
+    @total_amount = (@subtotal + @tax_amount).round(2)
   end
 
 

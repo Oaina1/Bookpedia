@@ -1,0 +1,19 @@
+<div class="columns is-multiline">
+  <% @books.each do |book| %>
+    <div class="column is-one-third">
+      <div class="box book">
+        <% if book.image.attached? %>
+          <%= image_tag book.image.variant(resize_to_limit: [200, 300]) %>
+        <% else %>
+          <p>No image available</p>
+        <% end %>
+        <h3 class="title is-5"><%= link_to book.name, book %></h3>
+        <p><strong>Genre:</strong> <%= book.genre.name %></p>
+        <p><strong>Price:</strong> <%= number_to_currency(book.price) %></p>
+        <% if book.on_sale? %>
+          <p><strong>On Sale</strong></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -7,8 +7,7 @@ gem 'faker'
 gem 'kaminari'
 gem "devise"
 gem 'activeadmin'
-gem "bulma-rails", "~> 0.9.4"
-gem 'inherited_resources'
+gem 'bulma'
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
