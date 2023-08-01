@@ -1,2 +1,0 @@
-class Province < ApplicationRecord
-end
